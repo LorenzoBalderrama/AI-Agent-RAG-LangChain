@@ -47,11 +47,3 @@ def load_issues(issues):
         docs.append(doc)
     
     return docs
-
-
-# Example usage
-owner = "LorenzoBalderrama"
-repo = "Go-Microservices-for-a-OMS"
-endpoint = "issues"
-
-fetch_github(owner, repo, endpoint)
