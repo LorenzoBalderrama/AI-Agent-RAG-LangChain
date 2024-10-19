@@ -25,12 +25,33 @@ def fetch_github(owner, repo, endpoint):
     print(data)
     return data
 
+def fetch_github_issues(owner, repo):
+    data = fetch_github(owner, repo, "issues")
+    return load_issues(data)
+
+def load_issues(issues):
+    docs = []
+    for entry in issues:
+        metadata = {
+            "author": entry["user"] ["login"],
+            "comments": entry["comments"],
+            "body": entry["body"],
+            "labels": entry["labels"],
+            "created_at": entry["created_at"]
+        }
+        # Concatinating title and body
+        data = entry["title"]
+        if entry["body"]:
+            data += entry["body"]
+        doc = Document(page_content=data, metadata=metadata)
+        docs.append(doc)
+    
+    return docs
 
 
 # Example usage
-
-owner = ""
-repo = ""
-endpoint = ""
+owner = "LorenzoBalderrama"
+repo = "Go-Microservices-for-a-OMS"
+endpoint = "issues"
 
 fetch_github(owner, repo, endpoint)
